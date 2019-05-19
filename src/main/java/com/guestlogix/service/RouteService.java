@@ -70,26 +70,27 @@ public class RouteService {
 
     private void findMinimalDistances(Airport node) {
         List<Airport> adjacentNodes = this.getNeighbors(node);
-        for (Airport target : adjacentNodes) {
-            if (this.getShortestDistance(target) > this.getShortestDistance(node)
-                    + this.getDistance(node, target)) {
-                this.distance.put(target, this.getShortestDistance(node)
-                        + this.getDistance(node, target));
-                this.predecessors.put(target, node);
-                this.unSettledNodes.add(target);
-            }
-        }
-
+        adjacentNodes.stream()
+                .filter(target -> this.getShortestDistance(target) > (this.getShortestDistance(node)
+                        + this.getDistance(node, target)))
+                .forEach(target -> {
+                    this.distance.put(target, this.getShortestDistance(node)
+                            + this.getDistance(node, target));
+                    this.predecessors.put(target, node);
+                    this.unSettledNodes.add(target);
+                }
+        );
     }
 
     private int getDistance(Airport node, Airport target) {
-        for (RouteEdge routeEdge : routeEdges) {
-            if (routeEdge.getOrigin().equals(node)
-                    && routeEdge.getDestination().equals(target)) {
-                return routeEdge.getWeight();
-            }
-        }
-        throw new RuntimeException("Should not happen");
+        Integer distance = this.routeEdges.stream()
+                .filter(routeEdge -> routeEdge.getOrigin().equals(node)
+                        && routeEdge.getDestination().equals(target))
+                .map(RouteEdge::getWeight)
+                .findFirst()
+                .orElse(Integer.MAX_VALUE);
+
+        return distance;
     }
 
     private List<Airport> getNeighbors(Airport node) {
