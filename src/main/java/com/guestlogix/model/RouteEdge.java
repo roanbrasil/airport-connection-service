@@ -7,10 +7,11 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-public class Edge  {
+public class RouteEdge {
 
     private final String id;
-    private final Vertex origin;
-    private final Vertex destination;
+    private final Airport origin;
+    private final Airport destination;
+    private final Airline airline;
     private final int weight;
 }

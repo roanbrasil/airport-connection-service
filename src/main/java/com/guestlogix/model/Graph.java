@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Graph {
 
-    private final List<Vertex> vertexes;
-    private final List<Edge> edges;
+    private final List<Airport> vetexList;
+    private final List<RouteEdge> routeEdgeList;
 
 }
