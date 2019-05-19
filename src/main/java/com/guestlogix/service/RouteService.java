@@ -12,8 +12,12 @@ import java.util.*;
 @Service
 public class RouteService {
 
+    private final MemoryRepository repository;
+
     @Autowired
-    private MemoryRepository repository;
+    public RouteService(final MemoryRepository repository){
+        this.repository = repository;
+    }
 
     private  List<Airport> nodes;
     private  List<RouteEdge> routeEdges;

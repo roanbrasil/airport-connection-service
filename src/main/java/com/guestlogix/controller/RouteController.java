@@ -20,11 +20,14 @@ import java.util.LinkedList;
 @Slf4j
 @RestController
 @RequestMapping("/route")
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class RouteController {
 
-    @Autowired
     private RouteService service;
+
+    @Autowired
+    public RouteController(RouteService service){
+        this.service = service;
+    }
 
     @GetMapping("/origin/{origin}/destination/{destination}")
     public ResponseEntity<LinkedList<Airport>> retrieveShortest(
