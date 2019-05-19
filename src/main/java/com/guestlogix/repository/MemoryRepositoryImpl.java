@@ -38,7 +38,6 @@ public class MemoryRepositoryImpl implements MemoryRepository {
         this.loadRoute();
 
         this.graph = new Graph(this.airportList, this.routeRouteEdgeList);
-        log.info("Graph Loaded -> Edges: {} -> Vertex: {}", this.graph.getRouteEdgeList(), this.graph.getVetexList());
     }
 
     private void loadRoute(){
@@ -64,7 +63,8 @@ public class MemoryRepositoryImpl implements MemoryRepository {
 
                         this.airportMap.putIfAbsent(route.getDestination(), destination);
                     }
-                    final RouteEdge routeEdge = new RouteEdge(route.getAirlineId(), origin, destination, airline, 1);
+
+                    final RouteEdge routeEdge = new RouteEdge(route.getAirlineId(), route, origin, destination, airline, 1);
                     return routeEdge;
                 })
                 .collect(Collectors.toList());
@@ -115,4 +115,5 @@ public class MemoryRepositoryImpl implements MemoryRepository {
     public Airport getAirport(String key){
         return this.airportMap.get(key);
     }
+
 }

@@ -9,7 +9,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public class RouteEdge {
 
-    private final String id;
+    private final String airlineId;
+    private Route route;
     private final Airport origin;
     private final Airport destination;
     private final Airline airline;

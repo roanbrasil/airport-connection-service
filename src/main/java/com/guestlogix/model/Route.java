@@ -20,5 +20,4 @@ public class Route {
 
     @JsonProperty("Destination")
     private String destination;
-
 }

@@ -1,8 +1,6 @@
 package com.guestlogix.service;
 
-import com.guestlogix.model.Airport;
-import com.guestlogix.model.RouteEdge;
-import com.guestlogix.model.Graph;
+import com.guestlogix.model.*;
 import com.guestlogix.repository.MemoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +28,21 @@ public class RouteService {
         this.execute(this.repository.getAirport(origin));
 
         LinkedList<Airport> path = new LinkedList<>();
+        LinkedList<Route> route = new LinkedList<>();
         Airport step = this.repository.getAirport(destination);
         // check if a path exists
         if (predecessors.get(step) == null) {
             return null;
         }
         path.add(step);
+
         while (predecessors.get(step) != null) {
             step = predecessors.get(step);
             path.add(step);
         }
         // Put it into the correct order
         Collections.reverse(path);
+
         return path;
     }
 
